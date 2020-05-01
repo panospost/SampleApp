@@ -27,9 +27,9 @@ interface APIInterface {
     suspend fun deleteUser(@Path("id") id: Int): Response<Int>
 
     @GET("/api/users?")
-    suspend fun doGetUserList(@Query("page") page: String?): Users
+    suspend fun doGetUserList(@Query("page") page: Int?): Response<Users>
 
     @GET("/api/users?")
-    suspend fun delayedUserList(@Query("delay") page: Int?): Users
+    suspend fun delayedUserList(@Query("delay") page: Int?): Response<Users>
 
 }

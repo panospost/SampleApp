@@ -88,6 +88,10 @@ dependencies {
     implementation 'androidx.lifecycle:lifecycle-extensions:2.2.0'
     kapt "com.squareup.moshi:moshi-kotlin-codegen:$moshi_version"
 
+    //Picasso
+    def picassoVersion = "2.71828"
+    implementation "com.squareup.picasso:picasso:$picassoVersion"
+
     testImplementation "junit:junit:$junit"
     androidTestImplementation "androidx.test.ext:junit:$android_junit"
     androidTestImplementation "androidx.test.espresso:espresso-core:$espresso"

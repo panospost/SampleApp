@@ -25,6 +25,7 @@ import java.util.*
 class LoginActivity : AppCompatActivity() {
     private val timer: Timer = Timer()
     private val DELAY: Long = 1000 // in ms
+    private lateinit var loginState: LoginFormState
 
 
     private lateinit var loginViewModel: LoginViewModel
@@ -38,16 +39,16 @@ class LoginActivity : AppCompatActivity() {
             .get(LoginViewModel::class.java)
 
         loginViewModel.loginFormState.observe(this@LoginActivity, Observer {
-            val loginState = it ?: return@Observer
+            loginState = it ?: return@Observer
 
             // disable login button unless both username / password is valid
             login.isEnabled = loginState.isDataValid
 
             if (loginState.usernameError != null) {
-                username.error = getString(loginState.usernameError)
+                username.error = getString(loginState.usernameError!!)
             }
             if (loginState.passwordError != null) {
-                password.error = getString(loginState.passwordError)
+                password.error = getString(loginState.passwordError!!)
             }
         })
 
@@ -102,8 +103,10 @@ class LoginActivity : AppCompatActivity() {
             Handler().postDelayed({
                 if (currentTextLength == searchTerm?.length) {
                     hideKeyboard(this@LoginActivity)
-                    loading.visibility = View.VISIBLE
-                    loginViewModel.login(username.text.toString(), password.text.toString())
+                    if(loginState.passwordError == null ) {
+                        loading.visibility = View.VISIBLE
+                        loginViewModel.login(username.text.toString(), password.text.toString())
+                    }
                 }
             }, DELAY)
         }

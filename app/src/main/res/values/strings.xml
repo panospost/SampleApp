@@ -13,6 +13,7 @@
     <string name="invalid_password">Password must be >5 characters</string>
     <string name="login_failed">"Login failed"</string>
     <string name="username">Username</string>
+    <string name="displayName">%1$s %1$s</string>
     <string name="register">Register</string>
     <string name="first_time_go_to_the_registration">First time? Go to the registration</string>
 

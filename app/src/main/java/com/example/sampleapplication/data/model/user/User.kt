@@ -1,9 +1,9 @@
 package com.example.sampleapplication.data.model.user
 
-import com.squareup.moshi.Json
+import com.squareup.moshi.JsonClass
 
-data class User(@Json(name = "ad")
+@JsonClass(generateAdapter = true)
+data class User(
                  val ad: Ad,
-                 @Json(name = "data")
                  val data: Data
 )
