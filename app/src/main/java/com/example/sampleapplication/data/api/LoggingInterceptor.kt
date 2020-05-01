@@ -5,7 +5,6 @@ import okhttp3.Interceptor
 import okhttp3.Request
 import okhttp3.Response
 import java.io.IOException
-import java.lang.String
 
 internal class LoggingInterceptor : Interceptor {
     @Throws(IOException::class)
