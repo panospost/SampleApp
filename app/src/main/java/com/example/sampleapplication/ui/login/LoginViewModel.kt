@@ -7,7 +7,8 @@ import android.util.Patterns
 import com.example.sampleapplication.data.LoginRepository
 
 import com.example.sampleapplication.R
-import com.example.sampleapplication.data.model.User
+import com.example.sampleapplication.data.model.CreateUserRequest
+import com.example.sampleapplication.data.model.LoginResponse
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
@@ -28,14 +29,22 @@ class LoginViewModel(private val loginRepository: LoginRepository) : ViewModel()
     private val _loginResult = MutableLiveData<LoginResult>()
     val loginResult: LiveData<LoginResult> = _loginResult
 
-    fun login(username: String, password: String): Boolean {
-        scope.launch {
-             val result = loginRepository.login(username, password)
+    private val _isLoggedIn = MutableLiveData<Boolean>()
+    val isloggedIn: LiveData<Boolean> = _isLoggedIn
 
-             if (result is User) {
-                 _loginResult.postValue(
-                     LoginResult(success = LoggedInUserView(displayName = result.name))
-                 )
+    fun login(username: String, password: String): Boolean {
+        val fakename = "eve.holt@reqres.in"
+        val fakepass = "cityslicka"
+        scope.launch {
+             val result = loginRepository.login(CreateUserRequest(email = fakename,id = null,name = null, password = fakepass))
+             if (result is LoginResponse) {
+//                 val getUser = loginRepository.getLoggedUser(id = 2);
+//                 if( getUser is User) {
+                     _loginResult.postValue(
+                         LoginResult(success = LoggedInUserView(displayName = "some name"))
+                     )
+//                 }
+
              } else {
                  _loginResult.postValue(
                      LoginResult(error = R.string.login_failed)

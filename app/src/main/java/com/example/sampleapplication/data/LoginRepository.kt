@@ -2,8 +2,10 @@ package com.example.sampleapplication.data
 
 import com.example.sampleapplication.data.api.APIInterface
 import com.example.sampleapplication.data.api.BaseRepository
+import com.example.sampleapplication.data.model.CreateUserRequest
 import com.example.sampleapplication.data.model.LoggedInUser
-import com.example.sampleapplication.data.model.User
+import com.example.sampleapplication.data.model.LoginResponse
+import com.example.sampleapplication.data.model.user.User
 
 /**
  * Class that requests authentication and user information from the remote data source and
@@ -30,13 +32,17 @@ class LoginRepository(private val apiInterface: APIInterface) : BaseRepository()
         //dataSource.logout()
     }
 
-    suspend fun login(username: String, password: String): User? {
-        val user = User(username, password)
+    suspend fun login(user: CreateUserRequest): LoginResponse? {
         return safeApiCall(
-            //await the result of deferred type
-            call = {apiInterface.createUser(user)},
-            error = "Error fetching news"
-            //convert to mutable list
+            call = {apiInterface.loginUser(user)},
+            error = "Error loging in user"
+        )
+    }
+
+    suspend fun  getLoggedUser(id: Int): User? {
+        return safeApiCall(
+            call = {apiInterface.getSingleUser(id)},
+            error = "Error loging in user"
         )
     }
 

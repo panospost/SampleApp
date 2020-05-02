@@ -16,7 +16,6 @@ object APIClient {
             .addConverterFactory(MoshiConverterFactory.create())
             .client(apiClient)
             .build()
-
     }
 
     val userApi: APIInterface = getRetrofit().create(APIInterface::class.java)
